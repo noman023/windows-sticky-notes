@@ -1,12 +1,18 @@
 import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 
-function Editor({ updateEditorState }) {
+function Editor({ updateEditorState, updateNotes }) {
   const [isClosed, setIsClosed] = useState(false);
+  const [text, setText] = useState("");
 
   const handleClick = () => {
     setIsClosed(true);
     updateEditorState(false);
+    updateNotes(text);
+  };
+
+  const handleChange = (e) => {
+    setText(e.target.value);
   };
 
   return (
@@ -18,12 +24,13 @@ function Editor({ updateEditorState }) {
       {/* navigation bar */}
       <div className="h-[10%] flex justify-end bg-gray-200 text-3xl text-gray-500 p-1 ">
         <div className="flex gap-4 ">
-          <RxCross2 onClick={handleClick} />
+          <RxCross2 title="Close" onClick={handleClick} />
         </div>
       </div>
 
       <div className="h-[80%]">
         <textarea
+          onChange={handleChange}
           name=""
           id=""
           placeholder="Take a note.."
