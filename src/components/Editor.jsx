@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 
-function Editor({ updateEditorState, updateNotes }) {
+function Editor({ updateNotes }) {
   const [isClosed, setIsClosed] = useState(false);
   const [text, setText] = useState("");
 
   const handleClick = () => {
     setIsClosed(true);
-    updateEditorState(false);
-    updateNotes(text);
+
+    if (text.length > 0) {
+      updateNotes(text);
+    }
   };
 
   const handleChange = (e) => {
@@ -17,7 +19,7 @@ function Editor({ updateEditorState, updateNotes }) {
 
   return (
     <section
-      className={`w-[450px] h-[400px]  border-2 border-gray-400 shadow-xl ${
+      className={`w-[400px] h-[400px]  border-2 border-gray-400 shadow-xl mb-2 ${
         isClosed && "hidden"
       }`}
     >
