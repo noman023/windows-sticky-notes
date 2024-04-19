@@ -76,7 +76,9 @@ function App() {
         {/* editor section */}
         <section>
           {openEditors.length > 0 &&
-            openEditors.map((count) => <Editor updateNotes={hanldeChange} />)}
+            openEditors.map((_, idx) => (
+              <Editor key={idx} updateNotes={hanldeChange} />
+            ))}
         </section>
       </main>
     </>
