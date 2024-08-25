@@ -17,7 +17,13 @@ function App() {
     setOpenEditors([...openEditors, "open"]);
   };
 
-  const hanldeChange = (data) => {
+  const handleCloseEditor = (index) => {
+    // reduce array length when closing the editor
+    const updatedEditors = openEditors.filter((_, idx) => idx !== index);
+    setOpenEditors(updatedEditors);
+  };
+
+  const hanldeNotes = (data) => {
     setNotes([data, ...notes]);
   };
 
@@ -62,12 +68,13 @@ function App() {
                   key={idx}
                   className="min-h-14 max-h-40 border mt-3 p-3 overflow-hidden"
                 >
-                  <p 
+                  <p
                     className={`break-words ${note.bold && "font-bold"} 
-                    ${note.italic && "italic"} ${note.underline && "underline"} ${
-                      note.lineThrough && "line-through"
-                    }`}>
-                      {note.text}
+                    ${note.italic && "italic"} ${
+                      note.underline && "underline"
+                    } ${note.lineThrough && "line-through"}`}
+                  >
+                    {note.text}
                   </p>
                 </div>
               ))
@@ -83,7 +90,11 @@ function App() {
         <section>
           {openEditors.length > 0 &&
             openEditors.map((_, idx) => (
-              <Editor key={idx} updateNotes={hanldeChange} />
+              <Editor
+                key={idx}
+                updateNotes={hanldeNotes}
+                closeEditor={() => handleCloseEditor(idx)}
+              />
             ))}
         </section>
       </main>
