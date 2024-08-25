@@ -62,7 +62,13 @@ function App() {
                   key={idx}
                   className="min-h-14 max-h-40 border mt-3 p-3 overflow-hidden"
                 >
-                  <p className="break-words">{note}</p>
+                  <p 
+                    className={`break-words ${note.bold && "font-bold"} 
+                    ${note.italic && "italic"} ${note.underline && "underline"} ${
+                      note.lineThrough && "line-through"
+                    }`}>
+                      {note.text}
+                  </p>
                 </div>
               ))
             ) : (

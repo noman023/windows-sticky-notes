@@ -25,17 +25,16 @@ function Editor({ updateNotes }) {
 
   }
   
-  const handleClick = () => {
+  const handleClose = () => {
     setIsClosed(true);
 
     // updates notes if there is any text
     if (text.length > 0) {
-      updateNotes(text);
+      updateNotes({
+        text,
+        ...attributes
+      });
     }
-  };
-
-  const handleChange = (e) => {
-    setText(e.target.value);
   };
 
   return (
@@ -47,16 +46,14 @@ function Editor({ updateNotes }) {
       {/* top settings options  */}
       <div className="h-[10%] flex justify-end bg-gray-200 text-3xl text-gray-500 p-1">
         <div className="flex gap-4 cursor-pointer hover:bg-gray-400 hover:text-white">
-          <RxCross2 title="Close" onClick={handleClick} />
+          <RxCross2 title="Close" onClick={handleClose} />
         </div>
       </div>
 
       {/* writing area */}
       <div className="h-[80%]">
         <textarea
-          onChange={handleChange}
-          name=""
-          id=""
+          onChange={(e) => setText(e.target.value)}
           placeholder="Take a note.."
           className={`w-full h-full outline-none p-4 border-b ${
             attributes.bold && "font-bold"
