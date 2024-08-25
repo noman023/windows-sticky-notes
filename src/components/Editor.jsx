@@ -5,11 +5,26 @@ function Editor({ updateNotes }) {
   const [isClosed, setIsClosed] = useState(false);
   const [text, setText] = useState("");
 
-  const [bold, setBold] = useState(false);
-  const [italic, setItalic] = useState(false);
-  const [underline, setUnderline] = useState(false);
-  const [lineThrough, setLineThrough] = useState(false);
+  const [attributes, setAttributes] = useState({
+    bold:false,
+    italic:false,
+    underline:false,
+    lineThrough:false
+  })
 
+  const handleAttribute = (e) => {
+    setAttributes(prev => {
+      const attributeName = e.target.name
+      
+      return {
+        ...prev,
+        // set alter value for attibute's previous value
+        [attributeName]: !prev[attributeName]
+      }
+    })
+
+  }
+  
   const handleClick = () => {
     setIsClosed(true);
 
@@ -44,9 +59,9 @@ function Editor({ updateNotes }) {
           id=""
           placeholder="Take a note.."
           className={`w-full h-full outline-none p-4 border-b ${
-            bold && "font-bold"
-          } ${italic && "italic"} ${underline && "underline"} ${
-            lineThrough && "line-through"
+            attributes.bold && "font-bold"
+          } ${attributes.italic && "italic"} ${attributes.underline && "underline"} ${
+            attributes.lineThrough && "line-through"
           }`}
         ></textarea>
       </div>
@@ -55,7 +70,8 @@ function Editor({ updateNotes }) {
       <div className="h-[10%] mt-1">
         <div className="flex justify-around text-xl h-full">
           <button
-            onClick={() => setBold(!bold)}
+            onClick={handleAttribute}
+            name="bold"
             className="font-bold hover:bg-gray-300 w-10 h-[80%]"
             title="Bold"
           >
@@ -63,7 +79,8 @@ function Editor({ updateNotes }) {
           </button>
 
           <button
-            onClick={() => setItalic(!italic)}
+            onClick={handleAttribute}
+            name="italic"
             className="italic hover:bg-gray-300 w-10 h-[80%]"
             title="Italic"
           >
@@ -71,7 +88,8 @@ function Editor({ updateNotes }) {
           </button>
 
           <button
-            onClick={() => setUnderline(!underline)}
+          onClick={handleAttribute}
+            name="underline"
             className="underline hover:bg-gray-300 w-10 h-[80%]"
             title="Underline"
           >
@@ -79,7 +97,8 @@ function Editor({ updateNotes }) {
           </button>
 
           <button
-            onClick={() => setLineThrough(!lineThrough)}
+            onClick={handleAttribute}
+            name="lineThrough"
             className="line-through hover:bg-gray-300 w-10 h-[80%]"
             title="Strikethrough"
           >
