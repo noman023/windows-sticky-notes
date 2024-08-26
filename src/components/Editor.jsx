@@ -38,7 +38,7 @@ function Editor({ updateNotes, closeEditor, noteToEdit }) {
   };
 
   return (
-    <section className="w-[400px] h-[400px] border-2 border-gray-400 shadow-xl mb-2">
+    <section className="max-w-[400px] sm:w-[400px] h-[400px] border-2 border-gray-400 shadow-xl mb-2">
       {/* top settings options  */}
       <div className="h-[10%] flex justify-end bg-gray-200 text-3xl text-gray-500 p-1">
         <div className="flex gap-4 cursor-pointer hover:bg-gray-400 hover:text-white">

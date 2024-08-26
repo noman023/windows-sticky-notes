@@ -50,8 +50,8 @@ function App() {
 
   return (
     <>
-      <main className="flex mt-8 gap-3">
-        <section className="w-[400px] h-[600px] ml-[10%] border-2 p-3 border-gray-400 shadow-xl ">
+      <main className="flex flex-col sm:flex-row mt-8 gap-3 p-2">
+        <section className="max-w-[400px] h-[600px] ml-0 sm:ml-[10%] border-2 p-3 border-gray-400 shadow-xl ">
           {/* top options bar */}
           <div className="flex justify-between text-3xl text-gray-500 mb-3">
             <div
