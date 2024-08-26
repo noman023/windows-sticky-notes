@@ -18,6 +18,7 @@ function App() {
 
   const [hoveredNoteIndex, setHoveredNoteIndex] = useState(null);
   const [menuSelected, setMenuSelected] = useState(false);
+  const [noteToEdit, setNoteToEdit] = useState(null);
 
   const handleOpenEditor = () => {
     // on every click add text "open" to increase the array length
@@ -28,6 +29,8 @@ function App() {
     // reduce array length when closing the editor
     const updatedEditors = openEditors.filter((_, idx) => idx !== index);
     setOpenEditors(updatedEditors);
+
+    setNoteToEdit(null); // remove data if exist in noteToEdit
   };
 
   const hanldeNotes = (data) => {
@@ -37,6 +40,12 @@ function App() {
   const handleDeleteNote = (index) => {
     // Remove the note at the given index
     setNotes(notes.filter((_, idx) => idx !== index));
+  };
+
+  const handleOpenNoteToEdit = (idx) => {
+    setNoteToEdit(notes[idx]);
+    handleOpenEditor(); // open editor
+    handleDeleteNote(idx); // delete note from state
   };
 
   return (
@@ -99,7 +108,10 @@ function App() {
                   {/* Dropdown menu */}
                   {hoveredNoteIndex === idx && menuSelected && (
                     <div className="w-40 absolute top-1 right-6 bg-white shadow-lg border rounded">
-                      <button className="w-full flex gap-2 items-center px-2 py-1 text-left hover:bg-gray-200">
+                      <button
+                        onClick={() => handleOpenNoteToEdit(idx)}
+                        className="w-full flex gap-2 items-center px-2 py-1 text-left hover:bg-gray-200"
+                      >
                         <IoOpenOutline /> Open note
                       </button>
 
@@ -139,6 +151,7 @@ function App() {
                 key={idx}
                 updateNotes={hanldeNotes}
                 closeEditor={() => handleCloseEditor(idx)}
+                noteToEdit={noteToEdit || null} // if no note for edit then null
               />
             ))}
         </section>

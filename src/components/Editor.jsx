@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 
-function Editor({ updateNotes, closeEditor }) {
-  const [text, setText] = useState("");
+function Editor({ updateNotes, closeEditor, noteToEdit }) {
+  // if data exist in noteToEdit store it in the text and attributes
+  const [text, setText] = useState(noteToEdit ? noteToEdit.text : "");
 
   const [attributes, setAttributes] = useState({
-    bold: false,
-    italic: false,
-    underline: false,
-    lineThrough: false,
+    bold: noteToEdit ? noteToEdit.bold : false,
+    italic: noteToEdit ? noteToEdit.italic : false,
+    underline: noteToEdit ? noteToEdit.underline : false,
+    lineThrough: noteToEdit ? noteToEdit.lineThrough : false,
   });
 
   const handleAttribute = (e) => {
@@ -50,6 +51,7 @@ function Editor({ updateNotes, closeEditor }) {
         <textarea
           onChange={(e) => setText(e.target.value)}
           placeholder="Take a note.."
+          value={text}
           className={`w-full h-full outline-none p-4 border-b 
             ${attributes.bold && "font-bold"} 
             ${attributes.italic && "italic"}
